@@ -31,7 +31,9 @@ jobs:
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.3.4
     - name: change to example-app
-      run: cd ./example-app
+      run: cd example-app
+    - name: poetry dependencies
+      run: poetry install
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
