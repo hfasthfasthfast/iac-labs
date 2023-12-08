@@ -34,8 +34,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.3.4
-    - name: List content of example app
-      run: ls example-app
     - name: poetry dependencies
       working-directory: ./example-app
       run: poetry install
