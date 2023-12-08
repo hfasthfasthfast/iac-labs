@@ -34,9 +34,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.3.4
-    - name: Poetry
-      run: |
-      poetry install --no-root
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
