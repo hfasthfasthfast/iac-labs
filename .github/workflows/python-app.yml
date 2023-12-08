@@ -41,3 +41,9 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - name: Second test
+      run: |
+        poetry run task lint
+    - name: Third test
+      run: |
+        poetry run task test
