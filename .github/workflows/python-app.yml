@@ -17,6 +17,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./example-app
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -30,9 +34,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.3.4
-    - name: change to example-app
-      run: cd ./example-app
-    - name: List content of example-app
+    - name: List content of working directory
       run: ls  
     - name: poetry dependencies
       run: poetry install
