@@ -93,7 +93,7 @@ jobs:
         export PATH="$HOME/.poetry/bin:$PATH"
     - name: Return to project directory
       run: |
-        cd /home/runner/work/<path>/example-app
+        cd /home/runner/work/iac-labs/iac-labs/example-app
     - name: Run task lint
       run: |
         poetry run task lint
