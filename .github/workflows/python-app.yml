@@ -76,7 +76,7 @@ jobs:
 
   unit_tests:
     runs-on: ubuntu-latest
-    needs: build_dependencies
+    needs: static_tests
     steps:
       - uses: actions/checkout@v3
       - name: Cache venv for unit tests
