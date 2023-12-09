@@ -26,9 +26,7 @@ jobs:
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
-        python-version: "3.10"
-    - name: Purge python3-virtualenv
-      run: sudo apt-get -y purge python3-virtualenv  
+        python-version: "3.10" 
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
