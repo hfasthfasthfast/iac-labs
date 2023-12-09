@@ -91,6 +91,8 @@ jobs:
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
         export PATH="$HOME/.poetry/bin:$PATH"
+    - name: Poetry dependencies
+      run: poetry install --no-root
     - name: Return to project directory
       run: |
         cd /home/runner/work/iac-labs/iac-labs/example-app
