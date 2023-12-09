@@ -77,26 +77,29 @@ jobs:
         working-directory: ./example-app
     needs: static_tests
     steps:
-      - uses: actions/checkout@v3
-      - name: Cache venv for unit tests
-        id: cached-dependencies-unit-tests
-        uses: actions/cache@v3
-        with:
-          path: |
-            /home/runner/work/<path>/example-app/.venv
-          key: ${{ runner.os }}-venv-unit-tests-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-venv-unit-tests-
-      - name: Install Poetry for unit tests
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          export PATH="$HOME/.poetry/bin:$PATH"
-      - name: First test with poetry
-        run: |
-          poetry run task lint
-      - name: Second test with poetry
-        run: |
-          poetry run task test
-      - name: Third test with pytest
-        run: |
-          pytest
+    - uses: actions/checkout@v3
+    - name: Cache venv for unit tests
+      id: cached-dependencies-unit-tests
+      uses: actions/cache@v3
+      with:
+        path: |
+          /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-venv-unit-tests-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-venv-unit-tests-
+    - name: Install Poetry for unit tests
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        export PATH="$HOME/.poetry/bin:$PATH"
+    - name: Return to project directory
+      run: |
+        cd /home/runner/work/<path>/example-app
+    - name: Run task lint
+      run: |
+        poetry run task lint
+    - name: Run task test
+      run: |
+        poetry run task test
+    - name: Run tests with pytest
+      run: |
+        pytest
