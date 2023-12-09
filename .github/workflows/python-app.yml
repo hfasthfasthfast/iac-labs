@@ -34,7 +34,7 @@ jobs:
         path: |
           /home/runner/work/<path>/example-app/.venv
           ~/.poetry
-        key: ${{ runner.os }}-venv-job1-${{ hashFiles('**/poetry.lock') }}
+        key: ${{ runner.os }}-venv-job1-${{ hashFiles('**') }}
         restore-keys: |
             ${{ runner.os }}-venv-job1-
     - name: Install Poetry
