@@ -78,19 +78,13 @@ jobs:
     needs: static_tests
     steps:
     - uses: actions/checkout@v3
-    - name: Cache venv for unit tests
-      id: cached-dependencies-unit-tests
-      uses: actions/cache@v3
-      with:
-        path: |
-          /home/runner/work/<path>/example-app/.venv
-        key: ${{ runner.os }}-venv-unit-tests-${{ hashFiles('**/poetry.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-venv-unit-tests-
     - name: Install Poetry for unit tests
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
         export PATH="$HOME/.poetry/bin:$PATH"
+    - name: Install pytest
+      run: |
+        pip install pytest
     - name: Poetry dependencies
       run: poetry install --no-root
     - name: Return to project directory
