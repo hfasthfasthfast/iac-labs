@@ -41,7 +41,7 @@ jobs:
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.3.4
     - name: Poetry dependencies
-      run: poetry install
+      run: poetry install --no-root
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
