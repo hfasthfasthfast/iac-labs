@@ -58,6 +58,12 @@ jobs:
 
       needs: job1
       steps:
+        - name: Cache build venv
+          id: cached-poetry-dependencies
+          uses: actions/cache@v3
+          with:
+            path: /home/runner/work/<path>/example-app/.venv
+            key: ${{ runner.os }}-venv
         - name: Second test
           run: |
             poetry run task lint
