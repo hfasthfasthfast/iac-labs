@@ -72,6 +72,9 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
   unit_tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./example-app
     needs: static_tests
     steps:
       - uses: actions/checkout@v3
