@@ -31,8 +31,12 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: /home/runner/work/<path>/example-app/.venv
-        key: ${{ runner.os }}-venv
+        path: |
+          /home/runner/work/<path>/example-app/.venv
+          ~/.poetry
+        key: ${{ runner.os }}-venv-job1-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+            ${{ runner.os }}-venv-job1-
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
@@ -58,18 +62,26 @@ jobs:
 
       needs: job1
       steps:
-        - name: Cache build venv
-          id: cached-poetry-dependencies
-          uses: actions/cache@v3
-          with:
-            path: /home/runner/work/<path>/example-app/.venv
-            key: ${{ runner.os }}-venv
-        - name: Second test
-          run: |
-            poetry run task lint
-        - name: Third test
-          run: |
-            poetry run task test
-        - name: Test with pytest
-          run: |
-            pytest
+      - uses: actions/checkout@v3
+      - name: Cache build venv for job2
+        id: cached-poetry-dependencies-job2
+        uses: actions/cache@v3
+        with:
+          path: |
+            /home/runner/work/<path>/example-app/.venv
+            ~/.poetry
+          key: ${{ runner.os }}-venv-job2-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-venv-job2-
+      - name: Export PATH for job2
+        run: |
+          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+      - name: Second test
+        run: |
+          poetry run task lint
+      - name: Third test
+        run: |
+          poetry run task test
+      - name: Test with pytest
+        run: |
+          pytest
