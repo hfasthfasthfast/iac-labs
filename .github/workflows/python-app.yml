@@ -1,6 +1,3 @@
-# This workflow will install Python dependencies, run tests, and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
 name: Python application
 
 on:
@@ -47,6 +44,9 @@ jobs:
         uses: snok/install-poetry@v1.3.4
       - name: Poetry dependencies
         run: poetry install --no-root
+      - name: Install Flake8
+        run: |
+          pip install flake8
 
   static_tests:
     runs-on: ubuntu-latest
@@ -66,9 +66,6 @@ jobs:
       - name: Export PATH for static tests
         run: |
           export PATH="$HOME/.poetry/bin:$PATH"
-      - name: Install Flake8
-        run: |
-          pip install flake8
       - name: Lint with flake8
         run: |
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
