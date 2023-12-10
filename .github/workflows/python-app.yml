@@ -63,7 +63,7 @@ jobs:
           VENV: .venv/scripts/activate
 
   static_tests:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ needs.build_dependencies.outputs.os }}
     needs: build_dependencies
     steps:
       - uses: actions/checkout@v3
