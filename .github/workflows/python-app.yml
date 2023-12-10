@@ -11,10 +11,10 @@ permissions:
 
 jobs:
   build_dependencies:
-    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ "ubuntu-latest", "windows-latest" ]
+    runs-on: ${{ matrix.os }}
     defaults:
       run:
         working-directory: ./example-app
@@ -90,7 +90,6 @@ jobs:
         pip install pytest
     - name: Poetry dependencies
       run: poetry install --no-root
-    - name: Return to project directory
     - name: Run task lint
       run: |
         poetry run task lint
