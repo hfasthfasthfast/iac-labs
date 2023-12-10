@@ -80,9 +80,6 @@ jobs:
           key: ${{ runner.os }}-venv-static-tests-${{ hashFiles('**/poetry.lock') }}
           restore-keys: |
             ${{ runner.os }}-venv-static-tests-
-      #- name: Export PATH for static tests
-      #  run: |
-      #    export PATH="$HOME/.poetry/bin:$PATH"
       - name: Install Flake8
         run: |
           pip install flake8
@@ -106,13 +103,15 @@ jobs:
     - name: Install Poetry for unit tests
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
-    #    export PATH="$HOME/.poetry/bin:$PATH"
-    - name: Run Poetry dependencies
+    - name: Install Poetry Action
+      uses: snok/install-poetry@v1.3.4
+    - name: Poetry dependencies
       run: |
-          bash scripts/install-poetry.sh
+        poetry install --no-root
       shell: bash
       env:
         pythonLocation: ${{ runner.os == 'Windows' && 'C:\\hostedtoolcache\\windows\\Python\\3.10.11\\x64' || '/usr/bin/python3' }}
+        VENV: .venv/scripts/activate
     - name: Install pytest
       run: |
         pip install pytest
