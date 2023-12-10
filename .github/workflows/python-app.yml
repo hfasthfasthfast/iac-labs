@@ -111,9 +111,9 @@ jobs:
       shell: bash
       env:
         pythonLocation: ${{ runner.os == 'Windows' && 'C:\\hostedtoolcache\\windows\\Python\\3.10.11\\x64' || '/usr/bin/python3' }}
-    - name: Add Poetry to PATH
+    - name: Add Poetry to PATH on Windows
       run: |
-        echo "::add-path::~/.poetry/bin"
+        echo '##[add-path]C:\Users\runneradmin\.poetry\bin' | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
       if: runner.os == 'Windows'
     - name: Install pytest
       run: |
