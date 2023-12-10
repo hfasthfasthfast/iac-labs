@@ -80,9 +80,9 @@ jobs:
           key: ${{ runner.os }}-venv-static-tests-${{ hashFiles('**/poetry.lock') }}
           restore-keys: |
             ${{ runner.os }}-venv-static-tests-
-      - name: Export PATH for static tests
-        run: |
-          export PATH="$HOME/.poetry/bin:$PATH"
+      #- name: Export PATH for static tests
+      #  run: |
+      #    export PATH="$HOME/.poetry/bin:$PATH"
       - name: Install Flake8
         run: |
           pip install flake8
