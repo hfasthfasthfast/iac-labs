@@ -37,12 +37,12 @@ jobs:
       - name: Install Poetry
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-            (New-Object System.Net.WebClient).DownloadFile('https://install.python-poetry.org/extra/get-poetry.py', 'get-poetry.py')
-            python get-poetry.py --version 1.1.11 --yes
-            $Env:PATH += ";$HOME/.poetry/bin"
+          (New-Object System.Net.WebClient).DownloadFile('https://install.python-poetry.org/extra/get-poetry.py', 'get-poetry.py')
+          python get-poetry.py --version 1.1.11 --yes
+          export PATH="$HOME/.poetry/bin:$PATH"
           else
-            curl -sSL https://install.python-poetry.org | python3 -
-            export PATH="$HOME/.poetry/bin:$PATH"
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.poetry/bin:$PATH"
           fi
       - name: Install dependencies
         run: |
