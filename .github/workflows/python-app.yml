@@ -42,8 +42,6 @@ jobs:
         run: |
             python -m pip install --upgrade pip
             pip install flake8 pytest
-        
-            # Check if requirements.txt exists and install requirements
             if [ -f requirements.txt ]; then
               if [ "$RUNNER_OS" == "Windows" ]; then
                 pip install -r requirements.txt
@@ -57,7 +55,12 @@ jobs:
       - name: Install Poetry Action
         uses: snok/install-poetry@v1.3.4
       - name: Poetry dependencies
-        run: poetry install --no-root
+        run: |
+          poetry install --no-root
+        shell: bash
+        env:
+          pythonLocation: ${{ runner.os == 'Windows' && 'C:\\hostedtoolcache\\windows\\Python\\3.10.11\\x64' || '/usr/bin/python3' }}
+          VENV: .venv/scripts/activate
 
   static_tests:
     runs-on: ${{ matrix.os }}
