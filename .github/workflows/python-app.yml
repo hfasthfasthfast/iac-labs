@@ -107,13 +107,12 @@ jobs:
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
     #    export PATH="$HOME/.poetry/bin:$PATH"
-    - name: Poetry dependencies
+    - name: Run Poetry dependencies
       run: |
-        poetry install --no-root
+          bash scripts/install-poetry.sh
       shell: bash
       env:
         pythonLocation: ${{ runner.os == 'Windows' && 'C:\\hostedtoolcache\\windows\\Python\\3.10.11\\x64' || '/usr/bin/python3' }}
-        VENV: .venv/scripts/activate
     - name: Install pytest
       run: |
         pip install pytest
